@@ -12,13 +12,13 @@ export const ProductCard = () => {
                 </Link>
              </div>
           <div className='product-image'>
-            <img src='images/watch.jpg' alt='product images' />
-            <img src='images/watch-1.avif' alt='product images' />
+            <img src='images/jeans-1.png' alt='product images' />
+            <img src='images/jeans-2.png' alt='product images' />
           </div>
           <div className='product-details'> 
-           <h6 className='product-details'>Havels </h6>
+           <h6 className='product-details'>Zara </h6>
            <h5 className='product-title'>
-            Kids headphone bulk 10 pack multi colored for students
+           Love Your Curves
            </h5>
            <ReactStars
               count={5}

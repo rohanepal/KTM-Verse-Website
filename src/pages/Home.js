@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { BlogCard } from '../components/BlogCard'
 import { ProductCard } from '../components/ProductCard'
+import { SpecialProduct } from '../components/SpecialProduct'
 
 const Home = () => {
   return (
@@ -174,59 +175,59 @@ const Home = () => {
             <div className="categories d-flex justify-content-between flex-wrap align-items-center">
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Music & Gaming</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/camera.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Cameras</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/camera.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Smart Tv</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/tv.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Smart Watches</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/headphone.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Music & Gaming</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/camera.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Cameras</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/camera.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Smart Tv</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/tv.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Smart Watches</h6>
+                  <h6>T-shirt</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/headphone.jpg" alt="camera" />
+                <img src="images/cat-Tshirt.png" alt="camera" />
               </div>
             </div>
           </div>
@@ -247,14 +248,102 @@ const Home = () => {
         </div>
      </section>
 
-     <section className='blog-wrapper py-5 home-wrapper-2'>
+     <section className='famous-wrapper py-5 home-wrapper-2'>
+     <div className='container-xxl'>
+      <div className="row">
+          <div className="col-3">
+            <div className="famous-card position-relative">
+              <img
+                src="images/famous-1.png"
+                className="img-fluid"
+                alt="famous"
+              />
+              <div className="famous-content position-absolute">
+                {/* <h5>Big Screen</h5>
+                <h6>Smart Watch Series 7</h6>
+                <p>From $399or $16.62/mo. for 24 mo.*</p> */}
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="famous-card position-relative">
+              <img
+                src="images/famous-3.png"
+                className="img-fluid"
+                alt="famous"
+              />
+              <div className="famous-content position-absolute">
+                <h5 className="text-dark">Studio Display</h5>
+                <h6 className="text-dark">600 nits of brightness.</h6>
+                <p className="text-dark">27-inch 5K Retina display</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="famous-card position-relative">
+              <img
+                src="images/famous-3.png"
+                className="img-fluid"
+                alt="famous"
+              />
+              <div className="famous-content position-absolute">
+                <h5 className="text-dark">smartphones</h5>
+                <h6 className="text-dark">Smartphone 13 Pro.</h6>
+                <p className="text-dark">
+                  Now in Green. From $999.00 or $41.62/mo. for 24 mo. Footnote*
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="famous-card position-relative">
+              <img
+                src="images/famous-3.png"
+                className="img-fluid"
+                alt="famous"
+              />
+              <div className="famous-content position-absolute">
+                <h5 className="text-dark">home speakers</h5>
+                <h6 className="text-dark">Room-filling sound.</h6>
+                <p className="text-dark">
+                  From $699 or $116.58/mo. for 12 mo.*
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+     </section>
+
+     <section className='special-wrapper py-5 home-wrapper-2'>
       <div className='container-xxl'>
         <div className='row'>
-        <div className='col-12'>
+          <div className='col-12'>
               <h3 className='section-heading'>Special Products</h3>
-            </div>
+          </div>
         </div>
+        <div className='row'>
+          <SpecialProduct />
+          <SpecialProduct />
+          <SpecialProduct />
+          <SpecialProduct />
+        </div>
+
       </div>
+     </section>
+
+     <section className='popular-wrapper py-5 home-wrapper-2'>
+        <div className='container-xxl'>
+          <div className='row'>
+            <div className='col-12'>
+              <h3 className='section-heading'>Our Popular Products</h3>
+            </div>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
+        </div>
      </section>
      
      <section className='blog-wrapper py-5 home-wrapper-2'>
