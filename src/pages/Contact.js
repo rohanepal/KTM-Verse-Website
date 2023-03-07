@@ -71,8 +71,8 @@ const Contact = () => {
                     <li className="mb-3 d-flex gap-15 align-items-center">
                       <AiOutlineHome className="fs-5" />
                       <address className="mb-0">
-                       Chhaya Center, Shop No: 219 
-                       Amrit Marg, Thamel, 
+                      Shop No: 219, Chhaya Center, 
+                      Amrit Marg, Thamel, 
                         Kathmandu, Nepal
                       </address>
                     </li>
