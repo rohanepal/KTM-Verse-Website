@@ -35,6 +35,13 @@ export const ProductCard = (props) => {
               edit={false}
               activeColor="#ffd700"
             />
+           <p className={`description ${grid === 12 ? "d-block" : "d-none"}`}>
+            Levi's jeans are an iconic brand of denim with over 150 years of history.
+             Known for their durability, comfort, and timeless style, 
+             they remain a popular choice for men and women. 
+             With a variety of styles and fits available, 
+             there's a pair of Levi's jeans for everyone.
+            </p>
            <p className='price'>NRs.5000.00</p>
           </div>
           <div className='action-bar position-absolute'>
@@ -80,6 +87,13 @@ export const ProductCard = (props) => {
               edit={false}
               activeColor="#ffd700"
             />
+            <p className={`description ${grid === 12 ? "d-block" : "d-none"}`}>
+            Levi's jeans are an iconic brand of denim with over 150 years of history.
+             Known for their durability, comfort, and timeless style, 
+             they remain a popular choice for men and women. 
+             With a variety of styles and fits available, 
+             there's a pair of Levi's jeans for everyone.
+            </p>
            <p className='price'>NRs.5000.00</p>
           </div>
           <div className='action-bar position-absolute'>
