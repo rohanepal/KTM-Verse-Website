@@ -19,16 +19,16 @@ const Wishlist = () => {
               />
               <div className="wishlist-card-image">
                 <img
-                  src="images/watch.jpg"
+                  src="images/jeans-1.png"
                   className="img-fluid w-100"
                   alt="watch"
                 />
               </div>
               <div className="py-3 px-3">
                 <h5 className="title">
-                  Honor T1 7.0 1 GB RAM 8 GB ROM 7 Inch With Wi-Fi+3G Tablet
+                 Zara
                 </h5>
-                <h6 className="price">$ 100</h6>
+                <h6 className="price">NRs.5000.00</h6>
               </div>
             </div>
           </div>
@@ -41,16 +41,16 @@ const Wishlist = () => {
               />
               <div className="wishlist-card-image">
                 <img
-                  src="images/watch.jpg"
+                  src="images/jeans-1.png"
                   className="img-fluid w-100"
                   alt="watch"
                 />
               </div>
               <div className="py-3 px-3">
                 <h5 className="title">
-                  Honor T1 7.0 1 GB RAM 8 GB ROM 7 Inch With Wi-Fi+3G Tablet
+                Zara
                 </h5>
-                <h6 className="price">$ 100</h6>
+                <h6 className="price">NRs.5000.00</h6>
               </div>
             </div>
           </div>
@@ -63,16 +63,16 @@ const Wishlist = () => {
               />
               <div className="wishlist-card-image">
                 <img
-                  src="images/watch.jpg"
+                  src="images/jeans-1.png"
                   className="img-fluid w-100"
                   alt="watch"
                 />
               </div>
               <div className="py-3 px-3">
                 <h5 className="title">
-                  Honor T1 7.0 1 GB RAM 8 GB ROM 7 Inch With Wi-Fi+3G Tablet
+                Zara
                 </h5>
-                <h6 className="price">$ 100</h6>
+                <h6 className="price">NRs.5000.00</h6>
               </div>
             </div>
           </div>

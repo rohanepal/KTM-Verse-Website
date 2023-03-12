@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {BsInstagram, BsYoutube, BsFacebook} from 'react-icons/bs';
 import {FaTiktok} from 'react-icons/fa'
+import newsletter from "../images/newsletter.png";
 const Footer = () => {
   return (
     <>
@@ -10,7 +11,7 @@ const Footer = () => {
           <div className='row align-items-center'>
             <div className='col-5'>
               <div className='footer-top-data d-flex gap-30 align-items-center'>
-                <img src='images/newsletter.png' alt='newsletter'></img>
+                <img src={newsletter} alt='newsletter'></img>
                 <h2 className='mb-0 text-white'> Sign Up For Newsletter</h2>
               </div>
             </div>
