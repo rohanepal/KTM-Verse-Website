@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OurStore from "./pages/OurStore";
-import Blog from "./pages/Blog";
+
 import CompareProduct from "./pages/CompareProduct";
 import Login from "./pages/Login";
 import Forgotpassword from "./pages/Forgotpassword";
@@ -14,7 +14,7 @@ import Signup from "./pages/Signup";
 import Resetpassword from "./pages/Resetpassword";
 import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
-import SingleBlog from "./pages/SingleBlog";
+
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPloicy from "./pages/RefundPloicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
@@ -34,8 +34,6 @@ function App() {
               <Route path="contact" element={<Contact/>} />
               <Route path="product" element={<OurStore/>} />
               <Route path="product/:id" element={<SingleProduct />} />
-              <Route path="blog" element={<Blog/>} />
-              <Route path="blog/:id" element={<SingleBlog/>} />
               <Route path="compare-product" element={<CompareProduct/>} />
               <Route path="login" element={<Login/>} />
               <Route path="forgot-password" element={<Forgotpassword />} />

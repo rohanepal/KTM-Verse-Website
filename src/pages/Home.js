@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { BlogCard } from '../components/BlogCard'
-import { ProductCard } from '../components/ProductCard'
+import { ProductCard } from "../components/ProductCard"
 import { SpecialProduct } from '../components/SpecialProduct'
 import Container from "../components/Container";
 import { services } from "../utils/Data";
@@ -208,8 +207,7 @@ const Home = () => {
             <div className='col-12'>
               <h3 className='section-heading'>Featured Collection</h3>
             </div>
-            <ProductCard />
-            <ProductCard />
+            
           </div>
         </div>
     </Container>
@@ -298,35 +296,11 @@ const Home = () => {
             <div className='col-12'>
               <h3 className='section-heading'>Our Popular Products</h3>
             </div>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+           
           </div>
      </Container>
      
-    <Container class1="blog-wrapper py-5 home-wrapper">
-    <div className="row">
-          <div className="col-12">
-            <h3 className="section-heading">Our Latest Blogs</h3>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-        </div>
-
-    </Container>
+     
     
     
     </>
