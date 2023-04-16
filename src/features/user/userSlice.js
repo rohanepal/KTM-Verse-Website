@@ -34,6 +34,18 @@ export const getUserProductWishlist = createAsyncThunk(
         }
     }
 );
+// add product to cart
+export const addProdToCart = createAsyncThunk(
+    "user/cart/add",
+    async (cartData, thunkAPI) => {
+        try{
+            return await authService.addToCart(cartData);
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 
 const getCustomerfromlocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
@@ -112,10 +124,28 @@ export const authSlice= createSlice({
             state.isError = true;             // when rejected
             state.isSuccess = false;
             state.message = action.error;
-        })
+        }) // creating add to cart slice 
+        .addCase(addProdToCart.pending,(state) => {       
+           state.isLoading=true;              // when pending
+       })
+       .addCase(addProdToCart.fulfilled, (state ,action) => {  
+           state.isLoading = false;
+           state.isError = false;
+           state.isSuccess = true;               // when fulfilled
+           state.cartProduct = action.payload;
+           if (state.isSuccess) {
+            toast.success("Product Added To Cart")
+           }
+       }) 
+       .addCase(addProdToCart.rejected,(state,action) => {    
+           state.isLoading = false;
+           state.isError = true;             // when rejected
+           state.isSuccess = false;
+           state.message = action.error;
+       });
     },
  
-})
+});
 
 export default authSlice.reducer;
 

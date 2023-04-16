@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
@@ -7,17 +7,43 @@ import ReactImageZoom from "react-image-zoom";
 import Color from "../components/Color";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "../components/Container";
 import jeans from "../images/jeans.png";
+import { useDispatch, useSelector } from 'react-redux'
+import { getAProduct } from "../features/products/productSlice";
+import { toast } from "react-toastify";
+import { addProdToCart } from "../features/user/userSlice";
 
 
 const SingleProduct = () => {
+  const [color, setColor] = useState(null)
+
+  const [quantity, setQuantity] = useState(1)
+
+
+  const location = useLocation()
+  const getProductId = location.pathname.split("/")[2]
+  const dispatch = useDispatch();
+  const productState = useSelector(state => state.product.singleproduct)
+   
+  useEffect(() => {
+    dispatch(getAProduct(getProductId))
+  },[])
+
+  const uploadCart = () => {
+   if (color === null) {
+    toast.error("Please Choose Color")
+    return false
+   } else {
+    dispatch(addProdToCart({productId:productState?._id,quantity,color,price:productState?.price}))
+   }
+  }
   const props = {
     width: 594,
     height: 600,
     zoomWidth: 600,
-    img: "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
+    img: productState?.images[0]?.url ? productState?.images[0]?.url : "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
   };
 
   const [orderedProduct, setorderedProduct] = useState(true);
@@ -44,50 +70,31 @@ const SingleProduct = () => {
               </div>
             </div>
             <div className="other-product-images d-flex flex-wrap gap-15">
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
+              {productState?.images.map((item, index) => {
+                return<div>
+                  <img
+                  src={item?.url}
                   className="img-fluid"
                   alt=""
                 />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
+                </div>
+              })}
             </div>
           </div>
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
                 <h3 className="title">
-                Zara
+                {productState?.title}
                 </h3>
               </div>
               <div className="border-bottom py-3">
-                <p className="price">$ 100</p>
+                <p className="price">NRs. {productState?.price}</p>
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
                     size={24}
-                    value={4}
+                    value={productState?.totalrating}
                     edit={false}
                     activeColor="#ffd700"
                   />
@@ -104,15 +111,15 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Brand :</h3>
-                  <p className="product-data">Zara</p>
+                  <p className="product-data">{productState?.brand}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Category :</h3>
-                  <p className="product-data">Pants</p>
+                  <p className="product-data">{productState?.category}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Tags :</h3>
-                  <p className="product-data">Jeans</p>
+                  <p className="product-data">{productState?.tags}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Availablity :</h3>
@@ -135,10 +142,12 @@ const SingleProduct = () => {
                     </span>
                   </div>
                 </div>
-                <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                  <h3 className="product-heading">Color :</h3>
-                  <Color />
-                </div>
+                  <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                      <h3 className="product-heading">Color :</h3>
+                  <Color setColor={setColor} colorData={productState?.color} />
+                  </div> 
+                
+
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
                   <h3 className="product-heading">Quantity :</h3>
                   <div className="">
@@ -150,14 +159,17 @@ const SingleProduct = () => {
                       className="form-control"
                       style={{ width: "70px" }}
                       id=""
+                      onChange={(e) => setQuantity(e.target.value)}
+                      value={quantity}
                     />
                   </div>
                   <div className="d-flex align-items-center gap-30 ms-5">
                     <button
                       className="button border-0"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop"
+                      /* data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop" */
                       type="button"
+                      onClick={()=>{uploadCart(productState?._id)}}
                     >
                       Add to Cart
                     </button>
@@ -190,7 +202,7 @@ const SingleProduct = () => {
                     href="javascript:void(0);"
                     onClick={() => {
                       copyToClipboard(
-                        "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
+                        window.location.href
                       );
                     }}
                   >
@@ -208,11 +220,10 @@ const SingleProduct = () => {
           <div className="col-12">
             <h4>Description</h4>
             <div className="bg-white p-3">
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Tenetur nisi similique illum aut perferendis voluptas, quisquam
-                obcaecati qui nobis officia. Voluptatibus in harum deleniti
-                labore maxime officia esse eos? Repellat?
+              <p dangerouslySetInnerHTML={{
+                __html: productState?.description
+               }}
+              >
               </p>
             </div>
           </div>
@@ -238,16 +249,16 @@ const SingleProduct = () => {
                     <p className="mb-0">Based on 2 Reviews</p>
                   </div>
                 </div>
-                {orderedProduct && (
+                {/* {orderedProduct && (
                   <div>
                     <a className="text-dark text-decoration-underline" href="">
                       Write a Review
                     </a>
                   </div>
-                )}
+                )} */}
               </div>
               <div className="review-form py-4">
-                <h4>Write a Review</h4>
+                <h4 className=" text-dark">Write a Review</h4>
                 <form action="" className="d-flex flex-column gap-15">
                   <div>
                     <ReactStars

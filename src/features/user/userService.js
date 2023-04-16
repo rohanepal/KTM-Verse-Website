@@ -29,8 +29,19 @@ const getUserWishlist = async () => {
     }
 };
 
+// for add to cart
+const addToCart = async (cartData) => {
+    const response =await axios.post(`${base_url}user/cart`, cartData, config); // passing url from backend
+    if(response.data){
+        return response.data;
+    }
+};
+
+
+
 export const authService={
     register,
     login,
     getUserWishlist,
+    addToCart,
 };

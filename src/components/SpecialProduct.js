@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component";
 
-export const SpecialProduct = () => {
+const SpecialProduct = (props) => {
+  const { title, brand, totalrating, price, sold, quantity, id } = props;
   return (
     <>
      <div className="col-6 mb-3">
@@ -12,19 +13,17 @@ export const SpecialProduct = () => {
               <img src="images/jeans-3.png" className="img-fluid" alt="watch" />
             </div>
             <div className="special-product-content">
-              <h5 className="brand">Levis</h5>
-              <h6 className="title">
-               Original jeans. Original people.
-              </h6>
+              <h5 className="brand">{brand}</h5>
+              <h6 className="title">{title}</h6>
               <ReactStars
                 count={5}
                 size={24}
-                value={4}
+                value={totalrating}
                 edit={false}
                 activeColor="#ffd700"
               />
               <p className="price">
-                <span className="red-p">$100</span> &nbsp; <strike>$200</strike>
+                <span className="red-p">NRs. {price}</span> &nbsp; <strike>NRs. 1500</strike>
               </p>
               <div className="discount-till d-flex align-items-center gap-10">
                 <p className="mb-0">
@@ -37,19 +36,19 @@ export const SpecialProduct = () => {
                 </div>
               </div>
               <div className="prod-count my-3">
-                <p>Products: 5</p>
+                <p>Products left: {quantity}</p>
                 <div className="progress">
                   <div
                     className="progress-bar"
                     role="progressbar"
-                    style={{ width: "25%" }}
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
+                    style={{ width: quantity / quantity + sold * 100 +"%" }}
+                    aria-valuenow={quantity / quantity + sold * 100}
+                    aria-valuemin={quantity}
+                    aria-valuemax={sold + quantity}
                   ></div>
                 </div>
               </div>
-              <Link className="button">Add to Cart</Link>
+              <Link className="button" to={'/product/'+id}>View</Link>
             </div>
           </div>
         </div>
@@ -59,3 +58,5 @@ export const SpecialProduct = () => {
 
   )
 }
+
+export default SpecialProduct
