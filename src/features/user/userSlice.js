@@ -66,9 +66,8 @@ export const authSlice= createSlice({
     reducers:{},
     extraReducers:(builder) => {
         builder
-        // creating authentation slice for register user
-        .addCase(registerUser.pending, (state) => {       // when pending
-            state.isLoading=true;
+        .addCase(registerUser.pending, (state) => {    // creating authentation slice for register user   
+            state.isLoading=true;    // when pending
         })
         .addCase(registerUser.fulfilled, (state, action) => {   // when fulfilled
             state.isLoading = false;
@@ -87,8 +86,8 @@ export const authSlice= createSlice({
             if (state.isError === true) {
                 toast.error(action.error)
             }
-        })   // creating authentation slice for login user
-        .addCase(loginUser.pending,(state) => {       
+        })   
+        .addCase(loginUser.pending,(state) => {        // creating authentation slice for login user
             state.isLoading=true;                         // when pending
         })
         .addCase(loginUser.fulfilled, (state, action) => {   
@@ -97,7 +96,6 @@ export const authSlice= createSlice({
             state.isSuccess = true;                       // when fulfilled
             state.user = action.payload;
             if (state.isSuccess === true) {
-              //  localStorage.setItem("token", action.payload.token);
                 toast.info("Login Successfull")
             }
         }) 
