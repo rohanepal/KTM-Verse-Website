@@ -18,10 +18,7 @@ import { addProdToCart } from "../features/user/userSlice";
 
 const SingleProduct = () => {
   const [color, setColor] = useState(null)
-
   const [quantity, setQuantity] = useState(1)
-
-
   const location = useLocation()
   const getProductId = location.pathname.split("/")[2]
   const dispatch = useDispatch();
@@ -169,7 +166,7 @@ const SingleProduct = () => {
                       /* data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop" */
                       type="button"
-                      onClick={()=>{uploadCart(productState?._id)}}
+                      onClick={()=>{uploadCart( )}}
                     >
                       Add to Cart
                     </button>

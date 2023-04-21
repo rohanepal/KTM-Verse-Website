@@ -1,6 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authService } from "./userService";
 import { toast } from "react-toastify";
+
+const getCustomerfromlocalStorage = localStorage.getItem("customer")
+  ? JSON.parse(localStorage.getItem("customer"))
+  : null;
+
+const initialState = {           // initial state
+    user : getCustomerfromlocalStorage,
+    isError: false,
+    isSuccess: false,
+    isLoading: false,
+    meaasge: "",
+};
+
 // for registering user
 export const registerUser=createAsyncThunk(
     "auth/register",
@@ -46,19 +59,6 @@ export const addProdToCart = createAsyncThunk(
     }
 );
 
-
-const getCustomerfromlocalStorage = localStorage.getItem("customer")
-  ? JSON.parse(localStorage.getItem("customer"))
-  : null;
-
-const initialState={           // initial state
-    user:getCustomerfromlocalStorage,
-    isError:false,
-    isSuccess:false,
-    isLoading:false,
-    meaasge:""  
-}
-
  // creating authentation slice
 export const authSlice= createSlice({    
     name:"auth",
@@ -67,10 +67,10 @@ export const authSlice= createSlice({
     extraReducers:(builder) => {
         builder
         // creating authentation slice for register user
-        .addCase(registerUser.pending,(state) => {       // when pending
+        .addCase(registerUser.pending, (state) => {       // when pending
             state.isLoading=true;
         })
-        .addCase(registerUser.fulfilled,(state,action) => {   // when fulfilled
+        .addCase(registerUser.fulfilled, (state, action) => {   // when fulfilled
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = true;
@@ -79,7 +79,7 @@ export const authSlice= createSlice({
                 toast.info("Sign Up Successfull")
             }
         }) 
-        .addCase(registerUser.rejected,(state,action) => {    // when rejected
+        .addCase(registerUser.rejected, (state, action) => {    // when rejected
             state.isLoading = false;
             state.isError = true;
             state.isSuccess = false;
@@ -91,13 +91,13 @@ export const authSlice= createSlice({
         .addCase(loginUser.pending,(state) => {       
             state.isLoading=true;                         // when pending
         })
-        .addCase(loginUser.fulfilled,(state,action) => {   
+        .addCase(loginUser.fulfilled, (state, action) => {   
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = true;                       // when fulfilled
             state.user = action.payload;
             if (state.isSuccess === true) {
-                localStorage.setItem("token", action.payload.token);
+              //  localStorage.setItem("token", action.payload.token);
                 toast.info("Login Successfull")
             }
         }) 
@@ -108,7 +108,7 @@ export const authSlice= createSlice({
             state.message = action.error;
             if (state.isError === true) {
                 toast.error(action.error)
-            }
+             }
         })   // creating wishlist slice for getting user wishlist
          .addCase(getUserProductWishlist.pending,(state) => {       
             state.isLoading=true;              // when pending
@@ -125,7 +125,7 @@ export const authSlice= createSlice({
             state.isSuccess = false;
             state.message = action.error;
         }) // creating add to cart slice 
-        .addCase(addProdToCart.pending,(state) => {       
+        .addCase(addProdToCart.pending, (state) => {       
            state.isLoading=true;              // when pending
        })
        .addCase(addProdToCart.fulfilled, (state ,action) => {  
@@ -137,7 +137,7 @@ export const authSlice= createSlice({
             toast.success("Product Added To Cart")
            }
        }) 
-       .addCase(addProdToCart.rejected,(state,action) => {    
+       .addCase(addProdToCart.rejected, (state,action) => {    
            state.isLoading = false;
            state.isError = true;             // when rejected
            state.isSuccess = false;
