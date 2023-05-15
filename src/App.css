@@ -433,6 +433,7 @@ footer:not(:first-child){
   display: flex;
   gap: 20px;
 }
+
 .gr-6 .product-image {
   width: 70%;
 }
@@ -447,9 +448,13 @@ footer:not(:first-child){
 .gr-12 .product-card .product-image {
   height: auto;   
 }
+.gr-4 .product-image {
+  height: auto;   
+}
 .gr-12 .action-bar {
   top: 17%;
 }
+
 /* Our store ends here */
 
 
@@ -565,7 +570,7 @@ footer:not(:first-child){
 }
 /*  auth card  ends*/
 
-/* Main Product Page */
+/* Single Product Page start */
 
 .description-wrapper h4,
 .reviews-wrapper h3 {
@@ -680,7 +685,7 @@ footer:not(:first-child){
 }
 
 
-/* Main Product Page */
+/* single Product Page ends */
 
 /* Cart Page */
 .cart-header,

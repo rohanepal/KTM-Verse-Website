@@ -59,6 +59,18 @@ export const addProdToCart = createAsyncThunk(
     }
 );
 
+// view cart
+export const getUserCart = createAsyncThunk(
+    "user/cart/get",
+    async (thunkAPI) => {
+        try{
+            return await authService.getCart();
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
  // creating authentation slice
 export const authSlice= createSlice({    
     name:"auth",
@@ -140,7 +152,22 @@ export const authSlice= createSlice({
            state.isError = true;             // when rejected
            state.isSuccess = false;
            state.message = action.error;
-       });
+       })// creating view cart slice 
+       .addCase(getUserCart.pending, (state) => {       
+          state.isLoading=true;              // when pending
+      })
+      .addCase(getUserCart.fulfilled, (state ,action) => {  
+          state.isLoading = false;
+          state.isError = false;
+          state.isSuccess = true;               // when fulfilled
+          state.cartProducts = action.payload;
+      }) 
+      .addCase(getUserCart.rejected, (state,action) => {    
+          state.isLoading = false;
+          state.isError = true;             // when rejected
+          state.isSuccess = false;
+          state.message = action.error;
+      })
     },
  
 });

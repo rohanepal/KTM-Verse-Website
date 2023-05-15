@@ -37,6 +37,14 @@ const addToCart = async (cartData) => {
     }
 };
 
+// for view cart
+const getCart = async () => {
+    const response = await axios.get(`${base_url}user/cart`, config); // passing url from backend
+    if (response.data) {
+        return response.data;
+    }
+};
+
 
 
 export const authService = {
@@ -44,4 +52,5 @@ export const authService = {
     login,
     getUserWishlist,
     addToCart,
+    getCart,
 };
