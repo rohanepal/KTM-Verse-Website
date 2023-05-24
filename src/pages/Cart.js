@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import { AiFillDelete } from "react-icons/ai";
@@ -6,14 +6,33 @@ import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import jeans from "../images/jeans.png";
 import {useDispatch, useSelector} from 'react-redux'
-import { getUserCart } from "../features/user/userSlice";
+import { deleteCartProduct, getUserCart, updateCartProduct } from "../features/user/userSlice";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const [productUpdateDetail, setProductUpdateDetail] = useState(null)
+  console.log(productUpdateDetail);
   const userCartState=useSelector(state=>state.auth.cartProducts)
-  const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getUserCart())
   },[])
+  useEffect(() => { 
+   if(productUpdateDetail !== null) {
+    dispatch(updateCartProduct({cartItemId:productUpdateDetail?.cartItemId,quantity:productUpdateDetail?.quantity})) 
+    setTimeout(() => {
+      dispatch(getUserCart())
+    },200)
+   }
+  },[productUpdateDetail])
+
+  // for removing product from cart
+  const deleteACartProduct = (id) => {
+    dispatch(deleteCartProduct(id)) 
+    setTimeout(() => {
+      dispatch(getUserCart())
+    },200)
+  }
+
   return (
     <>
       <Meta title={"Cart"} />
@@ -54,11 +73,12 @@ const Cart = () => {
                       min={1}
                       max={10}
                       id=""
-                      value={item?.quantity}
+                      value={productUpdateDetail?.quantity ? productUpdateDetail?.quantity :item?.quantity}
+                      onChange={(e)=>{setProductUpdateDetail({cartItemId:item?._id,quantity:e.target.value})}}
                     />
                   </div>
                   <div>
-                    <AiFillDelete className="text-danger " />
+                    <AiFillDelete onClick={()=>{deleteACartProduct(item?._id)}} className="text-danger " />
                   </div>
                 </div>
                 <div className="cart-col-4">

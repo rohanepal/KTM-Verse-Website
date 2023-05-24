@@ -45,6 +45,22 @@ const getCart = async () => {
     }
 };
 
+// for removing cart product
+const removeProductFormCart = async (cartItemId) => {
+    const response = await axios.delete(`${base_url}user/delete-product-cart/${cartItemId}`, config); // passing url from backend
+    if (response.data) {
+        return response.data;
+    }
+};
+
+// for update product quantity in cart
+const updateProductFormCart = async (cartDetail) => {
+    const response = await axios.delete(`${base_url}user/update-product-cart/${cartDetail.cartItemId}/${cartDetail.quantity}`, config); // passing url from backend
+    if (response.data) {
+        return response.data;
+    }
+};
+
 
 
 export const authService = {
@@ -53,4 +69,7 @@ export const authService = {
     getUserWishlist,
     addToCart,
     getCart,
+    removeProductFormCart,
+    updateProductFormCart,
 };
+
