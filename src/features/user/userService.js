@@ -61,6 +61,13 @@ const updateProductFormCart = async (cartDetail) => {
     }
 };
 
+ // for creating order
+ const createOrder = async (orderDetail) => {
+    const response = await axios.post(`${base_url}user/cart/create-order`,orderDetail, config); // passing url from backend
+    if (response.data) {
+        return response.data;
+    }
+};
 
 
 
@@ -72,5 +79,6 @@ export const authService = {
     getCart,
     removeProductFormCart,
     updateProductFormCart,
+    createOrder,
 };
 

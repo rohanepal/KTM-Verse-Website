@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios'
 import { config } from "../utils/axiosConfig";
+import { createAnOrder } from "../features/user/userSlice";
 
 const shippingSchema = yup.object({
   firstName: yup.string().required("First Name is Required"),
@@ -23,7 +24,8 @@ const Checkout = () => {
   const cartState = useSelector(state => state.auth.cartProducts)
   const [totalAmount, setTotalAmount] = useState(null);
   const [shippingInfo, setShippingInfo] = useState(null)
-  const [paymentInfo, setPaymentInfo]=useState({razorpayPaymentId:"",razorpayOrderId:""})
+  const [paymentInfo, setPaymentInfo] = useState({ razorpayPaymentId: "", razorpayOrderId: "" })
+  const [cartProductState,setCartProductState]=useState([])
   console.log(paymentInfo, shippingInfo)
 
   useEffect(() => {
@@ -47,10 +49,12 @@ const formik = useFormik({
   validationSchema: shippingSchema,
   onSubmit: (values) => {
     setShippingInfo(values)
-    checkOutHandler()
+    setTimeout(() => {
+      checkOutHandler() 
+    },3000)
   },
  });
-
+console.log(shippingInfo);
   const loadScript = (src) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -64,20 +68,26 @@ const formik = useFormik({
       document.body.appendChild(script)
     })
   }
-
+  useEffect(() => {
+    let items=[]
+    for (let index = 0; index < cartState?.length; index++){
+       items.push({product:cartState[index].productId._id,quantity:cartState[index].quantity,color:cartState[index].color._id,price:cartState[index].price})
+    }
+    setCartProductState(items)
+  },[])
   const checkOutHandler = async () => {
     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
     if (!res) {
       alert("Razorpay SDK failed to load")
       return;
     }
-    const result = await axios.post("http://localhost:5000/api/user/order/checkout", "", config)
+    const result = await axios.post("http://localhost:5000/api/user/order/checkout",{amount:totalAmount+200}, config)
     if (!result) {
       alert("Something is Wrong")
       return;
     }
     const { amount, id: order_id, currency } = result.data.order
-    console.log(result);
+    console.log(amount);
     const options = {
       key: "rzp_test_TzzrhWadtwKPeO", // Enter the Key ID generated from the Dashboard
       amount: amount,
@@ -99,6 +109,7 @@ const formik = useFormik({
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
         })
+        dispatch(createAnOrder({totalPrice:totalAmount,totalPriceAfterDiscount:totalAmount,orderItems:cartProductState,paymentInfo,shippingInfo}))
       },
       prefill: {
         name: "Ktm Verse",
