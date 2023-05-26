@@ -11,11 +11,12 @@ import { deleteCartProduct, getUserCart, updateCartProduct } from "../features/u
 const Cart = () => {
   const dispatch = useDispatch();
   const [productUpdateDetail, setProductUpdateDetail] = useState(null)
-  console.log(productUpdateDetail);
+  const [totalAmount, setTotalAmount] = useState(null)
+  // adding product to the cart
   const userCartState=useSelector(state=>state.auth.cartProducts)
   useEffect(() => {
     dispatch(getUserCart())
-  },[])
+  },200) // quantity update in cart
   useEffect(() => { 
    if(productUpdateDetail !== null) {
     dispatch(updateCartProduct({cartItemId:productUpdateDetail?.cartItemId,quantity:productUpdateDetail?.quantity})) 
@@ -24,7 +25,6 @@ const Cart = () => {
     },200)
    }
   },[productUpdateDetail])
-
   // for removing product from cart
   const deleteACartProduct = (id) => {
     dispatch(deleteCartProduct(id)) 
@@ -32,6 +32,16 @@ const Cart = () => {
       dispatch(getUserCart())
     },200)
   }
+  // for cart total
+  useEffect(() => {
+      let sum = 0;
+      for (let index = 0; index < userCartState?.length; index++) {
+        sum = sum + (Number(userCartState[index].quantity) * userCartState[index].price)
+        setTotalAmount(sum)
+      }
+  },[userCartState])
+
+
 
   return (
     <>
@@ -51,7 +61,7 @@ const Cart = () => {
                 return(<div key={index} className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
                 <div className="cart-col-1 gap-15 d-flex align-items-center">
                   <div className="w-25">
-                    <img src={jeans} className="img-fluid" alt="product image" />
+                    <img src={item?.productId?.images[0]?.url} className="img-fluid" alt="product image" />
                     
                   </div>
                   <div className="w-75">
@@ -94,13 +104,16 @@ const Cart = () => {
               <Link to="/product" className="button">
                 Continue To Shopping
               </Link>
-              <div className="d-flex flex-column align-items-end">
-                <h4>SubTotal: $ 1000</h4>
+              {
+                (totalAmount !== null || totalAmount !== 0) &&
+                <div className="d-flex flex-column align-items-end">
+                <h4>SubTotal: NRs. {totalAmount?totalAmount:"0"}</h4>
                 <p>Taxes and shipping calculated at checkout</p>
                 <Link to="/checkout" className="button">
                   Checkout
                 </Link>
               </div>
+              }
             </div>
           </div>
         </div>
