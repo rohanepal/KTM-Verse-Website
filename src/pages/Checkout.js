@@ -22,7 +22,9 @@ const Checkout = () => {
   const dispatch = useDispatch()
   const cartState = useSelector(state => state.auth.cartProducts)
   const [totalAmount, setTotalAmount] = useState(null);
-  const [shippingInfo,setShippingInfo]=useState(null)
+  const [shippingInfo, setShippingInfo] = useState(null)
+  const [paymentInfo, setPaymentInfo]=useState({razorpayPaymentId:"",razorpayOrderId:""})
+  console.log(paymentInfo, shippingInfo)
 
   useEffect(() => {
     let sum = 0;
@@ -44,72 +46,76 @@ const formik = useFormik({
   },
   validationSchema: shippingSchema,
   onSubmit: (values) => {
+    setShippingInfo(values)
     checkOutHandler()
   },
  });
 
- const loadScript = (src) => {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => {
-      resolve(true)
-    }
-    script.onerror = () => { 
-      resolve(false)
-    }
-    document.body.appendChild(script)
-  })
- } 
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true)
+      }
+      script.onerror = () => {
+        resolve(false)
+      }
+      document.body.appendChild(script)
+    })
+  }
 
- const checkOutHandler = async () => {
-  const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-  if (!res) {
-    alert("Razorpay SDK failed to load")
-    return;
-  }
-  const result = await axios.post("http://localhost:5000/api/user/order/checkout","",config)
-  if (!result) {
-    alert("Something is Wrong")
-    return;
-  }
-  const { amount, id: order_id, currency } = result.data.order
-  console.log(result);
-  const options = {
-    key: "rzp_test_jk96M1tbCBGW2H", // Enter the Key ID generated from the Dashboard
-    amount: amount,
-    currency: currency,
-    name: "Ktm Verse",
-    description: "Test Transaction",
-    order_id: order_id,
-    handler: async function (response) {
+  const checkOutHandler = async () => {
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+    if (!res) {
+      alert("Razorpay SDK failed to load")
+      return;
+    }
+    const result = await axios.post("http://localhost:5000/api/user/order/checkout", "", config)
+    if (!result) {
+      alert("Something is Wrong")
+      return;
+    }
+    const { amount, id: order_id, currency } = result.data.order
+    console.log(result);
+    const options = {
+      key: "rzp_test_TzzrhWadtwKPeO", // Enter the Key ID generated from the Dashboard
+      amount: amount,
+      currency: currency,
+      name: "Ktm Verse",
+      description: "Test Transaction",
+      order_id: order_id,
+      handler: async function (response) {
         const data = {
-            orderCreationId: order_id,
-            razorpayPaymentId: response.razorpay_payment_id,
-            razorpayOrderId: response.razorpay_order_id,
-            razorpaySignature: response.razorpay_signature,
+          orderCreationId: order_id,
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
         };
 
-        const result = await axios.post("http://localhost:5000/api/user/order/paymentVerification", data);
+        const result = await axios.post("http://localhost:5000/api/user/order/paymentVerification", data,config);
 
-        alert(result);
-    },   
-    prefill: {
+        setPaymentInfo({
+          orderCreationId: order_id,
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+        })
+      },
+      prefill: {
         name: "Ktm Verse",
         email: "KtmVerse@gmail.com",
         contact: "9860019456",
-    },
-    notes: {
+      },
+      notes: {
         address: "Chhaya Centre",
-    },
-    theme: {
+      },
+      theme: {
         color: "#61dafb",
-    },
-};
+      },
+    };
 
-const paymentObject = new window.Razorpay(options);
-paymentObject.open();
- }
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  }
 
 
   return (
