@@ -48,7 +48,6 @@ const Wishlist = () => {
                       } 
                         className="img-fluid d-block mx-auto"
                         alt="watch"
-                        width={160}
                       />
                     </div>
                     <div className="py-3 px-3">

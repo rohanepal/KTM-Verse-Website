@@ -289,9 +289,9 @@ const Home = () => {
                         <button className='border-0 bg-transparent'>
                           <img onClick={()=>navigate("/product/"+item?._id)} src={view} alt="view" />
                         </button>
-                        <button className='border-0 bg-transparent'>
+                       {/*  <button className='border-0 bg-transparent'>
                           <img src={addcart} alt="addcart" />
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -453,9 +453,9 @@ const Home = () => {
                         <button className='border-0 bg-transparent'>
                           <img onClick={()=>navigate("/product/"+item?._id)} src={view} alt="view" />
                         </button>
-                        <button className='border-0 bg-transparent'>
+                        {/*<button className='border-0 bg-transparent'>
                           <img src={addcart} alt="addcart" />
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>

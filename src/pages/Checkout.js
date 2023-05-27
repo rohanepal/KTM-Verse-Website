@@ -51,7 +51,7 @@ const formik = useFormik({
     setShippingInfo(values)
     setTimeout(() => {
       checkOutHandler() 
-    },3000)
+    },300)
   },
  });
 console.log(shippingInfo);

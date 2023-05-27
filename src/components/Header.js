@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { BsSearch } from "react-icons/bs"
 import compare from "../images/compare.svg";
@@ -8,19 +8,39 @@ import user from "../images/user.svg";
 import cart from "../images/cart.svg";
 import menu from "../images/menu.svg";
 import { useDispatch, useSelector } from 'react-redux';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { getAProduct } from "../features/products/productSlice";
 
 
 const Header = () => {
   const dispatch = useDispatch();
-  const cartState=useSelector(state=>state?.auth?.cartProducts)
-  const [total,setTotalAmount]=useState(null)
-  useEffect(() => {
+  const cartState = useSelector(state => state?.auth?.cartProducts)         // for cart total
+  const authState = useSelector(state => state?.auth)                        // for login
+  const productState = useSelector(state => state?.product?.product)           // for search
+  const [productOpt,setProductOpt]=useState([])
+  const [paginate, setPaginate] = useState(true);
+  const navigate = useNavigate()
+
+  const [total,setTotalAmount]=useState(null)  
+  useEffect(() => {                    // for cart total
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
       sum = sum + (Number(cartState[index].quantity) * Number(cartState[index].price))
       setTotalAmount(sum)
     }
-},[cartState])
+ },[cartState])
+ useEffect(() => {                      // for search
+  let data = []
+  for (let index = 0; index < productState.length; index++) {
+    const element = productState[index];
+    data.push({id:index,prod:element?._id,name:element?.title})
+  } 
+  setProductOpt(data)
+ },[productState])
+
+
+ 
   return (
      <>
     <header className='header-top-strip py-2'>
@@ -43,23 +63,29 @@ const Header = () => {
         <div className='row align-items-centre'>
           <div className='col-2'>
             <h2>
-              <Link className='text-white '> KTM-Verse</Link>
+              <Link to={'/'} className='text-white '> KTM-Verse</Link>
             </h2>
           </div>
           <div className='col-5'>
           <div className="input-group">
-            <input 
-              type="text" 
-              className="form-control py-2" 
-              placeholder="Search Product ..." 
-              aria-label="Search Product ..." 
-              aria-describedby="basic-addon2"/>
+          <Typeahead
+              id="pagination-example"
+              onPaginate={() => console.log('Results paginated')}
+              onChange={(selected) => {
+                  navigate(`/product/${selected[0]?.prod}`)
+                  dispatch(getAProduct(selected[0]?.prod))
+              }}
+              options={productOpt}
+              paginate={paginate}
+              labelKey={"name"}
+              minLength={2}
+              placeholder="Search for Products here..."
+            />
            <span className="input-group-text p-3" id="basic-addon2">
             <BsSearch className='fs-6' />
            </span>
          </div>
           </div>
-
           <div className='col-5'>
            <div className='header-upper-links d-flex align-items-center justify-content-between'>
             <div>
@@ -79,11 +105,17 @@ const Header = () => {
               </Link>
             </div>
             <div>
-            <Link to='/login' className='d-flex align-items-center gap-10 text-white'>
+            <Link 
+               to={authState?.user===null ? "/login":"/my-orders"} 
+               className='d-flex align-items-center gap-10 text-white'>
               <img src={user} alt='user'></img>
-              <p className='mb-0 justify-content-between align-items-center'>
-                Login <br /> Account
+                {
+                  authState?.user===null ? <p className='mb-0 justify-content-between align-items-center'>
+                  Login <br /> Account
+                </p> :<p className='mb-0 justify-content-between align-items-center'>
+                Welcome <br />{authState?.user?.firstname}
               </p>
+                }
               </Link>
             </div>
             <div>
@@ -97,7 +129,6 @@ const Header = () => {
             </div>
            </div>
           </div>
-
         </div>
       </div>
     </header>

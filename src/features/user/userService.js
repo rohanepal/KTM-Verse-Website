@@ -68,6 +68,13 @@ const updateProductFormCart = async (cartDetail) => {
         return response.data;
     }
 };
+// for get my order
+const getUserOrders = async () => {
+    const response = await axios.get(`${base_url}user/getmyorders`, config); // passing url from backend
+    if (response.data) {
+        return response.data;
+    }
+};
 
 
 
@@ -80,5 +87,6 @@ export const authService = {
     removeProductFormCart,
     updateProductFormCart,
     createOrder,
+    getUserOrders,
 };
 

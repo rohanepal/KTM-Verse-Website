@@ -106,6 +106,17 @@ export const updateCartProduct = createAsyncThunk(
     }
 );
 
+// view my orders
+export const getOrders = createAsyncThunk(
+    "user/order/get",
+    async (thunkAPI) => {
+        try{
+            return await authService.getUserOrders();
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
  // creating authentation slice
 export const authSlice= createSlice({    
     name:"auth",
@@ -265,9 +276,23 @@ export const authSlice= createSlice({
        if (state.isSuccess===false) {
           toast.error("Something Went Wrong!")
        }
-   })
-    },
- 
+   })// creating cases for get order
+   .addCase(getOrders.pending, (state) => {       
+      state.isLoading=true;              // when pending
+  })
+  .addCase(getOrders.fulfilled, (state ,action) => {  
+      state.isLoading = false;
+      state.isError = false;
+      state.isSuccess = true;               // when fulfilled
+      state.getorderedProduct = action.payload;
+  }) 
+  .addCase(getOrders.rejected, (state,action) => {    
+      state.isLoading = false;
+      state.isError = true;             // when rejected
+      state.isSuccess = false;
+      state.message = action.error;
+  })
+  },
 });
 
 export default authSlice.reducer;
