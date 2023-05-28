@@ -38,16 +38,16 @@ const addToCart = async (cartData) => {
 };
 
 // for view cart
-const getCart = async () => {
-    const response = await axios.get(`${base_url}user/cart`, config); // passing url from backend
+const getCart = async (data) => {
+    const response = await axios.get(`${base_url}user/cart`, data); // passing url from backend
     if (response.data) {
         return response.data;
     }
 };
 
 // for removing cart product
-const removeProductFormCart = async (cartItemId) => {
-    const response = await axios.delete(`${base_url}user/delete-product-cart/${cartItemId}`, config); // passing url from backend
+const removeProductFormCart = async (data) => {
+    const response = await axios.delete(`${base_url}user/delete-product-cart/${data.id}`, data.config2); // passing url from backend
     if (response.data) {
         return response.data;
     }
@@ -76,6 +76,14 @@ const getUserOrders = async () => {
     }
 };
 
+// for cart clear
+const emptyCart = async () => {
+    const response = await axios.delete(`${base_url}user/empty-cart`, config); // passing url from backend
+    if (response.data) {
+        return response.data;
+    }
+};
+
 
 
 export const authService = {
@@ -88,5 +96,6 @@ export const authService = {
     updateProductFormCart,
     createOrder,
     getUserOrders,
+    emptyCart,
 };
 

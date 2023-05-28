@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { authService } from "./userService";
 import { toast } from "react-toastify";
 
@@ -74,9 +74,9 @@ export const createAnOrder = createAsyncThunk(
 // view cart
 export const getUserCart = createAsyncThunk(
     "user/cart/get",
-    async (thunkAPI) => {
+    async (data,thunkAPI) => {
         try{
-            return await authService.getCart();
+            return await authService.getCart(data);
         }catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -86,9 +86,9 @@ export const getUserCart = createAsyncThunk(
 // remove Product form cart
 export const deleteCartProduct = createAsyncThunk(
     "user/cart/product/delete",
-    async (cartItemId,thunkAPI) => {
+    async (data,thunkAPI) => {
         try{
-            return await authService.removeProductFormCart(cartItemId);
+            return await authService.removeProductFormCart(data);
         }catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -117,6 +117,21 @@ export const getOrders = createAsyncThunk(
         }
     }
 );
+// empty cart
+export const deleteUserCart = createAsyncThunk(
+    "user/cart/delete",
+    async (thunkAPI) => {
+        try{
+            return await authService.emptyCart();
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const resetState = createAction("Reset_all")
+
+
  // creating authentation slice
 export const authSlice= createSlice({    
     name:"auth",
@@ -142,7 +157,7 @@ export const authSlice= createSlice({
             state.isSuccess = false;
             state.message = action.error;
             if (state.isError === true) {
-                toast.error(action.error)
+                toast.error(action.payload.response.data.message)
             }
         })   
         .addCase(loginUser.pending,(state) => {        // creating authentation slice for login user
@@ -163,7 +178,7 @@ export const authSlice= createSlice({
             state.isSuccess = false;
             state.message = action.error;
             if (state.isError === true) {
-                toast.error(action.error)
+                toast.error(action.payload.response.data.message)
              }
         })   // creating wishlist slice for getting user wishlist
          .addCase(getUserProductWishlist.pending,(state) => {       
@@ -291,7 +306,23 @@ export const authSlice= createSlice({
       state.isError = true;             // when rejected
       state.isSuccess = false;
       state.message = action.error;
-  })
+  })// creating cases for empty cart
+  .addCase(deleteUserCart.pending, (state) => {       
+     state.isLoading=true;              // when pending
+ })
+ .addCase(deleteUserCart.fulfilled, (state ,action) => {  
+     state.isLoading = false;
+     state.isError = false;
+     state.isSuccess = true;               // when fulfilled
+     state.deletedCart = action.payload;
+ }) 
+ .addCase(deleteUserCart.rejected, (state,action) => {    
+     state.isLoading = false;
+     state.isError = true;             // when rejected
+     state.isSuccess = false;
+     state.message = action.error;
+ })
+ .addCase(resetState, () => initialState);
   },
 });
 
