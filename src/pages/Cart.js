@@ -25,7 +25,7 @@ const Cart = () => {
   const [productUpdateDetail, setProductUpdateDetail] = useState(null)
   const [totalAmount, setTotalAmount] = useState(null)
   // adding product to the cart
-  const userCartState=useSelector(state=>state.auth.cartProducts)
+  const userCartState=useSelector(state=>state?.auth?.cartProducts)
   useEffect(() => {
     dispatch(getUserCart(config2))
   },[]) // quantity update in cart

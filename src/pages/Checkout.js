@@ -28,6 +28,22 @@ const Checkout = () => {
   const [cartProductState,setCartProductState]=useState([])
   const navigate = useNavigate()
 
+  const getTokenFromLocalStorage = localStorage.getItem("customer")
+? JSON.parse(localStorage.getItem("customer"))
+: null;
+
+const config2 = {
+headers: {
+  Authorization: `Bearer ${
+    getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+  }`,
+  Accept: "application/json",
+},
+};
+useEffect(() => {
+   dispatch(getUserCart(config2))
+},[])
+
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
@@ -114,6 +130,7 @@ console.log(shippingInfo);
           dispatch(createAnOrder({totalPrice:totalAmount,totalPriceAfterDiscount:totalAmount,orderItems:cartProductState,paymentInfo:result.data,shippingInfo:JSON.parse(localStorage.getItem("address"))}))
           dispatch(deleteUserCart())
           dispatch(resetState())
+          dispatch(getUserCart(config2));
       },
       prefill: {
         name: "Ktm Verse",

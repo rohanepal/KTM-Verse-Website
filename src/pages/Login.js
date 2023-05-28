@@ -33,9 +33,10 @@ const Login = () => {
    });
    useEffect(() => {
     if (authState.user !== null && authState.isError === false) {
-      navigate('/')
+      navigate('/');
+      window.location.reload(); // Refresh the page
     }
-   },[authState])
+  }, [authState]);
 
   
   return (

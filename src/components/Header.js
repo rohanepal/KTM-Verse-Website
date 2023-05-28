@@ -140,7 +140,7 @@ useEffect(() => {
               <img src={cart} alt='cart'></img>
                <div className='d-flex flex-column gap-10'>
                 <span className='badge bg-white text-dark'>{cartState?.length ? cartState.length : 0}</span>
-                <p className='mb-0'> NRs. {total ? total : 0}</p>
+                <p className='mb-0'> NRs. {cartState?.total ? cartState?.total : 0}</p>
                </div>
               </Link>
             </div>
