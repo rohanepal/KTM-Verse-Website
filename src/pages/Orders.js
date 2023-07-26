@@ -89,7 +89,7 @@ const Orders = () => {
                                                                 </div>
                                                                 <div className='col-3'>
                                                                     <ul className="colors ps-0">
-                                                                        <li style={{ backgroundColor: i?.color.title }}></li>
+                                                                        <li style={{ backgroundColor: i?.color?.title }}></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
