@@ -48,14 +48,14 @@ const Home = () => {
                 alt='main banner'
               />
               <div className='main-banner-content position-absolute'>
-                <h5>ALWAYS READY</h5>
+                {/* <h5>ALWAYS READY</h5>
                 <h4>10% OFF</h4>
                 <p>Women's jackets <br />
                   and dresses by <br />
                   Nike, Bershka, <br />
                   Zara, Shein <br />
                   and more</p>
-                <Link className='button'>SHOP WOMEN </Link>
+                <Link className='button'>SHOP WOMEN </Link> */}
               </div>
             </div>
 
@@ -367,7 +367,7 @@ const Home = () => {
           </div>
         </div>
       </Container>
-
+{/* 
       <Container class1="special-wrapper py-5 home-wrapper-2">
         <div className='row'>
           <div className='col-12'>
@@ -392,7 +392,7 @@ const Home = () => {
             }
           })}
         </div>
-      </Container>
+      </Container> */}
 
       <Container class1="popular-wrapper py-5 home-wrapper-2">
         <div className='row'>

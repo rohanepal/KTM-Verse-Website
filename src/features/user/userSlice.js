@@ -204,9 +204,9 @@ export const authSlice= createSlice({
            state.isError = false;
            state.isSuccess = true;               // when fulfilled
            state.cartProduct = action.payload;
-           if (state.isSuccess) {
-            toast.success("Product Added To Cart")
-           }
+        //    if (state.isSuccess) {
+        //     toast.success("Product Added To Cart")
+        //    }
        }) 
        .addCase(addProdToCart.rejected, (state,action) => {    
            state.isLoading = false;
@@ -237,9 +237,9 @@ export const authSlice= createSlice({
          state.isError = false;
          state.isSuccess = true;               // when fulfilled
          state.deletedCartProduct = action.payload;
-         if (state.isSuccess) {
-            toast.success("Product Deleted From Cart Successfully!")
-         }
+        //  if (state.isSuccess) {
+        //     toast.success("Product Deleted From Cart Successfully!")
+        //  }
      }) 
      .addCase(deleteCartProduct.rejected, (state,action) => {    
          state.isLoading = false;
@@ -258,9 +258,6 @@ export const authSlice= createSlice({
         state.isError = false;
         state.isSuccess = true;               // when fulfilled
         state.updatedCartProduct = action.payload;
-        if (state.isSuccess) {
-           toast.success("Product Updated  From Cart Successfully!")
-        }
     }) 
     .addCase(updateCartProduct.rejected, (state,action) => {    
         state.isLoading = false;

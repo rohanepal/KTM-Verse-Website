@@ -3,6 +3,7 @@ import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 import Container from "../components/Container";
 import jeans from "../images/jeans.png";
 import {useDispatch, useSelector} from 'react-redux'
@@ -27,22 +28,28 @@ const Cart = () => {
   // adding product to the cart
   const userCartState=useSelector(state=>state?.auth?.cartProducts)
   useEffect(() => {
-    dispatch(getUserCart(config2))
-  },[]) // quantity update in cart
+    setTimeout(() => {
+      dispatch(getUserCart(config2))
+    },300)
+  },[]) 
+  
+  // quantity update in cart
   useEffect(() => { 
    if(productUpdateDetail !== null) {
     dispatch(updateCartProduct({cartItemId:productUpdateDetail?.cartItemId,quantity:productUpdateDetail?.quantity})) 
     setTimeout(() => {
       dispatch(getUserCart(config2))
-    },300)
+    },200)
    }
   },[productUpdateDetail])
+
+
   // for removing product from cart
   const deleteACartProduct = (id) => {
     dispatch(deleteCartProduct({id:id,config2:config2})) 
     setTimeout(() => {
       dispatch(getUserCart(config2))
-    },200)
+    },300)
   }
   // for cart total
   useEffect(() => {
@@ -111,9 +118,10 @@ const Cart = () => {
           </div>
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
-              <Link to="/product" className="button">
-                Continue To Shopping
-              </Link>
+            <Link to="/product" className="text-dark">
+                      <BiArrowBack className="me-2" />
+                      Continue To Shopping
+                    </Link>
               {
                 (totalAmount !== null || totalAmount !== 0) &&
                 <div className="d-flex flex-column align-items-end">

@@ -54,7 +54,7 @@ const SingleProduct = () => {
     width: 594,
     height: 600,
     zoomWidth: 600,
-    img: productState?.images[0]?.url ? productState?.images[0]?.url : "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
+    img: productState?.images[0]?.url ? productState?.images[0]?.url : "https://images.pexels.co/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
   };
 
   const [orderedProduct, setorderedProduct] = useState(true);
@@ -165,7 +165,7 @@ const SingleProduct = () => {
                   <h3 className="product-heading">Availablity :</h3>
                   <p className="product-data">In Stock</p>
                 </div>
-                <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                {/* <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Size :</h3>
                   <div className="d-flex flex-wrap gap-15">
                     <span className="badge border border-1 bg-white text-dark border-secondary">
@@ -181,7 +181,7 @@ const SingleProduct = () => {
                       XXL
                     </span>
                   </div>
-                </div>
+                </div> */}
                 {
                   alreadyAdded === false && <>
                     <div className="d-flex gap-10 flex-column mt-2 mb-3">

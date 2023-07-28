@@ -4,10 +4,10 @@
   box-sizing:border-box;
 }
 :root {
-  --color-131921: #131921;
-  --color-3b4149: #3b4149; 
+  --color-131921: #161616;
+  --color-3b4149: #1d2125; 
   --color-febd69: #febd69; 
-  --color-232f3e: #232f3e; 
+  --color-232f3e: #1d2125; 
   --color-ffe866: #ffe866; 
   --color-f5f5f7: #f5f5f7;
   --color-ededed: #ededed;
@@ -15,6 +15,8 @@
   --color-bf4800: #bf4800;
   --color-1c1c1b: #1c1c1b;
   --color-ded5ea: #ded5ea;
+  --color-a3bcd7: #d2d2d2;
+  
 
 }
 .section-heading{
@@ -62,7 +64,7 @@ a{
   border-radius: 10px;
 } 
 .button:hover{
-  background-color: var(--color-ded5ea);
+  background-color: var(--color-a3bcd7);
   color: #131921;
 }
 /* Header Part Starts */
@@ -76,7 +78,7 @@ a{
 }
 
 .header-upper .input-group-text {
-  background-color: var(--color-febd69);
+  background-color: var(--color-f5f5f7);
 }
 
 .header-upper.header-upper-links img {
@@ -114,7 +116,7 @@ a{
 }
 .header-bottom .dropdown-item:hover {
   background-color: transparent;
-  color: var(--color-febd69) !important;
+  color: var(--color-a3bcd7) !important;
 }
 
 /* Header Part Ends */
@@ -560,7 +562,7 @@ footer:not(:first-child){
   color: var(--color-1c1c1b);
 }
 .signup {
-  background-color: var(--color-febd69);
+  background-color: var(--color-a3bcd7);
   color: var(--color-131921);
   border: none;
 }

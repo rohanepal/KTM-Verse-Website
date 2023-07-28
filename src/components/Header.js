@@ -6,6 +6,7 @@ import compare from "../images/compare.svg";
 import wishlist from "../images/wishlist.svg";
 import user from "../images/user.svg";
 import cart from "../images/cart.svg";
+import cart01 from "../images/cart01.svg";
 import menu from "../images/menu.svg";
 import { useDispatch, useSelector } from 'react-redux';
 import { Typeahead } from 'react-bootstrap-typeahead';
@@ -16,8 +17,9 @@ import { getUserCart } from "../features/user/userSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const cartState = useSelector(state => state?.auth?.cartProducts)         // for cart total
+  
   const authState = useSelector(state => state?.auth)                        // for login
+  const cartState = useSelector(state => state?.auth.cartProducts)         // for cart total
   const productState = useSelector(state => state?.product?.product)           // for search
   const [productOpt,setProductOpt]=useState([])
   const [paginate, setPaginate] = useState(true);
@@ -44,12 +46,13 @@ useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
       sum = sum + (Number(cartState[index].quantity) * Number(cartState[index].price))
-      setTotalAmount(sum)
     }
+    setTotalAmount(sum)
  },[cartState])
+
  useEffect(() => {                      // for search
   let data = []
-  for (let index = 0; index < productState.length; index++) {
+  for (let index = 0; index < productState?.length; index++) {
     const element = productState[index];
     data.push({id:index,prod:element?._id,name:element?.title})
   } 
@@ -137,10 +140,10 @@ useEffect(() => {
             </div>
             <div>
             <Link to='/cart' className='d-flex align-items-center gap-10 text-white'>
-              <img src={cart} alt='cart'></img>
+              <img src={cart01} alt='cart'></img>
                <div className='d-flex flex-column gap-10'>
-                <span className='badge bg-white text-dark'>{cartState?.length ? cartState.length : 0}</span>
-                <p className='mb-0'> NRs. {cartState?.total ? cartState?.total : 0}</p>
+                <span className='badge bg-white text-dark'>{cartState?.length ? cartState?.length : 0}</span>
+                <p className='mb-0'> NRs. {cartState?.total ? cartState.total : 0}</p>
                </div>
               </Link>
             </div>

@@ -10,6 +10,7 @@ import { registerUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from 'react-redux'
 
 
+
 const signUpSchema = yup.object({
   firstname: yup.string().required("First Name is Required"),
   lastname: yup.string().required("Last Name is Required"),
@@ -22,7 +23,7 @@ const signUpSchema = yup.object({
 });
 
 const Signup = () => {
- const authState = useSelector (state=>state.auth)
+ const authState = useSelector (state=>state?.auth)
  const dispatch = useDispatch();
  const navigate = useNavigate()
  const formik = useFormik({
@@ -38,12 +39,12 @@ const Signup = () => {
     dispatch(registerUser(values)); 
   },
  });
+
  useEffect(() => {
-  if (authState.createdUser !== null && authState.isError == false) {
+  if (authState.createdUser === null && authState.isError !== false) {
     navigate('/login')
   }
  },[authState])
-
 
   return (
     <>
