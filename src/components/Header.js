@@ -19,7 +19,7 @@ const Header = () => {
   const dispatch = useDispatch();
   
   const authState = useSelector(state => state?.auth)                        // for login
-  const cartState = useSelector(state => state?.auth.cartProducts)         // for cart total
+  const cartState = useSelector(state => state?.auth?.cartProducts)         // for cart total
   const productState = useSelector(state => state?.product?.product)           // for search
   const [productOpt,setProductOpt]=useState([])
   const [paginate, setPaginate] = useState(true);
@@ -45,9 +45,9 @@ useEffect(() => {
   useEffect(() => {                    // for cart total
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
-      sum = sum + (Number(cartState[index].quantity) * Number(cartState[index].price))
+      sum = sum + (Number(cartState[index].quantity) * cartState[index].price)
+      setTotalAmount(sum)
     }
-    setTotalAmount(sum)
  },[cartState])
 
  useEffect(() => {                      // for search
@@ -143,7 +143,7 @@ useEffect(() => {
               <img src={cart01} alt='cart'></img>
                <div className='d-flex flex-column gap-10'>
                 <span className='badge bg-white text-dark'>{cartState?.length ? cartState?.length : 0}</span>
-                <p className='mb-0'> NRs. {cartState?.total ? cartState.total : 0}</p>
+                {/* <p className='mb-0'> NRs. {cartState?.total ? cartState?.total : 0}</p> */}
                </div>
               </Link>
             </div>

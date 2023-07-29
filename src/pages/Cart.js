@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import { AiFillDelete } from "react-icons/ai";
@@ -6,59 +6,59 @@ import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Container from "../components/Container";
 import jeans from "../images/jeans.png";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteCartProduct, getUserCart, updateCartProduct } from "../features/user/userSlice";
 
 const Cart = () => {
   const getTokenFromLocalStorage = localStorage.getItem("customer")
-  ? JSON.parse(localStorage.getItem("customer"))
-  : null;
+    ? JSON.parse(localStorage.getItem("customer"))
+    : null;
 
   const config2 = {
-  headers: {
-    Authorization: `Bearer ${
-      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-    }`,
-    Accept: "application/json",
-  },
-};
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+        }`,
+      Accept: "application/json",
+    },
+  };
   const dispatch = useDispatch();
   const [productUpdateDetail, setProductUpdateDetail] = useState(null)
   const [totalAmount, setTotalAmount] = useState(null)
+
   // adding product to the cart
-  const userCartState=useSelector(state=>state?.auth?.cartProducts)
+  const userCartState = useSelector(state => state?.auth?.cartProducts)
   useEffect(() => {
     setTimeout(() => {
       dispatch(getUserCart(config2))
-    },300)
-  },[]) 
-  
+    }, 300)
+  }, [])
+
   // quantity update in cart
-  useEffect(() => { 
-   if(productUpdateDetail !== null) {
-    dispatch(updateCartProduct({cartItemId:productUpdateDetail?.cartItemId,quantity:productUpdateDetail?.quantity})) 
-    setTimeout(() => {
-      dispatch(getUserCart(config2))
-    },200)
-   }
-  },[productUpdateDetail])
+  useEffect(() => {
+    if (productUpdateDetail !== null) {
+      dispatch(updateCartProduct({ cartItemId: productUpdateDetail?.cartItemId, quantity: productUpdateDetail?.quantity }))
+      setTimeout(() => {
+        dispatch(getUserCart(config2))
+      }, 200)
+    }
+  }, [productUpdateDetail])
 
 
   // for removing product from cart
   const deleteACartProduct = (id) => {
-    dispatch(deleteCartProduct({id:id,config2:config2})) 
+    dispatch(deleteCartProduct({ id: id, config2: config2 }))
     setTimeout(() => {
       dispatch(getUserCart(config2))
-    },300)
+    }, 100)
   }
   // for cart total
   useEffect(() => {
-      let sum = 0;
-      for (let index = 0; index < userCartState?.length; index++) {
-        sum = sum + (Number(userCartState[index].quantity) * userCartState[index].price)
-        setTotalAmount(sum)
-      }
-  },[userCartState])
+    let sum = 0;
+    for (let index = 0; index < userCartState?.length; index++) {
+      sum = sum + (Number(userCartState[index].quantity) * userCartState[index].price)
+      setTotalAmount(sum)
+    }
+  }, [userCartState])
 
   return (
     <>
@@ -75,62 +75,62 @@ const Cart = () => {
             </div>
             {
               userCartState && userCartState?.map((item, index) => {
-                return(<div key={index} className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
-                <div className="cart-col-1 gap-15 d-flex align-items-center">
-                  <div className="w-25">
-                    <img src={item?.productId?.images[0]?.url} className="img-fluid" alt="product image" />
-                    
+                return (<div key={index} className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
+                  <div className="cart-col-1 gap-15 d-flex align-items-center">
+                    <div className="w-25">
+                      <img src={item?.productId?.images[0]?.url} className="img-fluid" alt="product image" />
+
+                    </div>
+                    <div className="w-75">
+                      <p>{item?.productId?.title}</p>
+                      <p className="d-flex gap-3">Color: <ul className="colors ps-0">
+                        <li style={{ backgroundColor: item?.color?.title }}></li>
+                      </ul></p>
+                    </div>
                   </div>
-                  <div className="w-75">
-                    <p>{item?.productId?.title}</p>
-                    <p className="d-flex gap-3">Color: <ul className="colors ps-0">
-                                    <li style={{backgroundColor:item?.color?.title}}></li>
-                               </ul></p>
+                  <div className="cart-col-2">
+                    <h5 className="price">NRs.{item?.price}</h5>
                   </div>
-                </div>
-                <div className="cart-col-2">
-                  <h5 className="price">NRs.{item?.price}</h5>
-                </div>
-                <div className="cart-col-3 d-flex align-items-center gap-15">
-                  <div>
-                    <input
-                      className="form-control"
-                      type="number"
-                      name={"quantity"+item?._id}
-                      min={1}
-                      max={10}
-                      id={"cart"+item?._id}
-                      value={item?.quantity}
-                      onChange={(e)=>{setProductUpdateDetail({cartItemId:item?._id,quantity:e.target.value})}}
-                    />
+                  <div className="cart-col-3 d-flex align-items-center gap-15">
+                    <div>
+                      <input
+                        className="form-control"
+                        type="number"
+                        name={"quantity" + item?._id}
+                        min={1}
+                        max={10}
+                        id={"cart" + item?._id}
+                        value={item?.quantity}
+                        onChange={(e) => { setProductUpdateDetail({ cartItemId: item?._id, quantity: e.target.value }) }}
+                      />
+                    </div>
+                    <div>
+                      <AiFillDelete onClick={() => { deleteACartProduct(item?._id) }} className="text-danger " />
+                    </div>
                   </div>
-                  <div>
-                    <AiFillDelete onClick={()=>{deleteACartProduct(item?._id)}} className="text-danger " />
+                  <div className="cart-col-4">
+                    <h5 className="price">NRs. {item?.price * item?.quantity}</h5>
                   </div>
-                </div>
-                <div className="cart-col-4">
-                  <h5 className="price">NRs. {item?.price * item?.quantity}</h5>
-                </div>
-              </div>)
+                </div>)
               })
             }
 
           </div>
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
-            <Link to="/product" className="text-dark">
-                      <BiArrowBack className="me-2" />
-                      Continue To Shopping
-                    </Link>
+              <Link to="/product" className="text-dark">
+                <BiArrowBack className="me-2" />
+                Continue To Shopping
+              </Link>
               {
                 (totalAmount !== null || totalAmount !== 0) &&
                 <div className="d-flex flex-column align-items-end">
-                <h4>SubTotal: NRs. {totalAmount?totalAmount:"0"}</h4>
-                <p>Taxes and shipping calculated at checkout</p>
-                <Link to="/checkout" className="button">
-                  Checkout
-                </Link>
-              </div>
+                  <h4>SubTotal: NRs. {totalAmount ? totalAmount : "0"}</h4>
+                  <p>Taxes and shipping calculated at checkout</p>
+                  <Link to="/checkout" className="button">
+                    Checkout
+                  </Link>
+                </div>
               }
             </div>
           </div>
