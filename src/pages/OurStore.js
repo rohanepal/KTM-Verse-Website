@@ -198,22 +198,22 @@ const [sort, setSort] = useState(null)
                       className="d-block img-fluid"
                       alt="grid"
                     />
-                    <img
+                    {/* <img
                       onClick={() => {
                         setGrid(6);
                       }}
                       src="images/gr2.svg"
                       className="d-block img-fluid"
                       alt="grid"
-                    />
-                    <img
+                    /> */}
+                    {/* <img
                       onClick={() => {
                         setGrid(12);
                       }}
                       src="images/gr.svg"
                       className="d-block img-fluid"
                       alt="grid"
-                    />
+                    /> */}
                   </div>
 
                 </div>
