@@ -9,6 +9,7 @@ import axios from 'axios'
 import { config } from "../utils/axiosConfig";
 import { createAnOrder, deleteUserCart, getUserCart, resetState } from "../features/user/userSlice";
 
+
 const shippingSchema = yup.object({
   firstName: yup.string().required("First Name is Required"),
   lastName: yup.string().required("Last Name is Required"),
@@ -57,6 +58,7 @@ useEffect(() => {
     navigate("/my-orders")
   }
 },[authState])
+
 const formik = useFormik({
   initialValues: {
     firstName: "",

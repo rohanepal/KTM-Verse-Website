@@ -63,22 +63,24 @@ useEffect(() => {
  
   return (
      <>
-    <header className='header-top-strip py-2'>
-      <div className='container-xxl'>
-        <div className='row'>
-          <div className='col-6'>
-          <p className='text-white mb-0'>Free Shipping Over Rs.2000</p>
-          </div>
-          
-          <div className='col-6'>
-          <p className='text-end text-white mb-0'> 
-            Telephone: <a className='text-white' href="tel:+977 9742520951"> +977 9742520951</a></p>
-          </div>
-        </div>
+   <header className='header-top-strip py-1'>
+  <div className='container-xxl'>
+    <div className='row'>
+      <div className='col-6'>
+        <p className='text-white mb-0 smaller-text'>Free Shipping Over Rs.2000</p>
       </div>
-    </header>
+      
+      <div className='col-6'>
+        <p className='text-end text-white mb-0 smaller-text'>
+          Telephone: <a className='text-white' href="tel:+977 9742520951"> +977 9742520951</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <header className='header-upper py-3'>
+
+    <header className='header-upper py-2'>
       <div className='container-xxl'>
         <div className='row align-items-centre'>
           <div className='col-2'>
@@ -153,7 +155,7 @@ useEffect(() => {
       </div>
     </header>
 
-    <header className='header-bottom py-2'>
+    <header className='header-bottom py-1'>
       <div className='container-xxl'>
         <div className='row'>
           <div className='col-12'></div>

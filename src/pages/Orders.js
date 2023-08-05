@@ -27,7 +27,7 @@ const Orders = () => {
           <button onClick={handleLogout} className="btn btn-danger">
             Logout 
           </button>
-          <Link to="/update-account">
+          <Link to="/my-profile">
             <button className="btn btn-primary mx-2">
               Update Account
             </button>

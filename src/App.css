@@ -796,3 +796,7 @@ td:first-child::after {
   background-color: #dee2e6;
 }
 
+/* Add this CSS class to make the text smaller */
+.smaller-text {
+  font-size: 15px;
+}
