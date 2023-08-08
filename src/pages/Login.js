@@ -32,7 +32,7 @@ const Login = () => {
     },
    });
    useEffect(() => {
-    if (authState.user !== null && authState.isError === false) {
+    if (authState?.user !== null && authState?.isError === false) {
       navigate('/');
       window.location.reload(); // Refresh the page
     }

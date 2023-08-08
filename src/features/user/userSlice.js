@@ -63,10 +63,21 @@ export const addProdToCart = createAsyncThunk(
 export const createAnOrder = createAsyncThunk(
     "user/cart/create-order",
     async (orderDetail, thunkAPI) => {
-        try{
+        try {
             return await authService.createOrder(orderDetail);
-        }catch (error) {
-            return thunkAPI.rejectWithValue(error);
+        } catch (error) {
+            if (error.isAxiosError) {
+                const serializedError = {
+                    message: error.message,
+                    response: {
+                        status: error.response.status,
+                        data: error.response.data,
+                    },
+                };
+                return thunkAPI.rejectWithValue(serializedError);
+            } else {
+                return thunkAPI.rejectWithValue("An error occurred.");
+            }
         }
     }
 );
@@ -168,9 +179,9 @@ export const authSlice= createSlice({
             state.isError = false;
             state.isSuccess = true;                       // when fulfilled
             state.user = action.payload;
-            if (state.isSuccess === true) {
-                toast.info("Login Successfull")
-            }
+            // if (state.isSuccess === true) {
+            //     toast.info("Login Successfull")
+            // }
         }) 
         .addCase(loginUser.rejected,(state,action) => {   
             state.isLoading = false;

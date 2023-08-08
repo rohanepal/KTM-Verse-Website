@@ -8,7 +8,6 @@ import * as yup from 'yup';
 import axios from 'axios'
 import { config } from "../utils/axiosConfig";
 import { createAnOrder, deleteUserCart, getUserCart, resetState } from "../features/user/userSlice";
-import { toast } from 'react-toastify';
 
 
 const shippingSchema = yup.object({
@@ -74,16 +73,11 @@ const Checkout = () => {
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
-      setShippingInfo(values);
-      localStorage.setItem("address", JSON.stringify(values));
-
-      if (values.paymentOption === "cash") {
-        handleCashOnDelivery(); // Call the function for Cash on Delivery
-      } else if (values.paymentOption === "online") {
-        setTimeout(() => {
-          checkOutHandler(values.paymentOption); // Call the function for online payment
-        }, 300);
-      }
+      setShippingInfo(values)
+      localStorage.setItem("address", JSON.stringify(values))
+      setTimeout(() => {
+        checkOutHandler(values.paymentOption)
+      }, 300)
     },
   });
   console.log(shippingInfo);
@@ -180,35 +174,6 @@ const Checkout = () => {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   };
-  const handleCashOnDelivery = async () => {
-    const paymentAmount = totalAmount + 200; // Assuming shipping cost is fixed for COD
-  
-    const result = await axios.post(
-      "http://localhost:5000/api/user/cart/create-order",
-      {
-        totalPrice: paymentAmount,
-        totalPriceAfterDiscount: paymentAmount,
-        orderItems: cartProductState,
-        shippingInfo: JSON.parse(localStorage.getItem("address")),
-        paymentMethod: "cash",
-      },
-      config
-    );
-  
-    if (result) {
-      dispatch(deleteUserCart());
-      dispatch(resetState());
-      dispatch(getUserCart(config2));
-  
-      navigate("/my-orders");
-      // Display success toast message
-    toast.success("Order Placed Successfully!");
-
-    } else {
-      alert("Something went wrong");
-    }
-  };
-  
 
 
 
@@ -405,7 +370,7 @@ const Checkout = () => {
                 </div>
 
                 <div className="mb-4 payment-options">
-                  <h4>Payment Method</h4>
+                  <h4>Payment Options</h4>
                   <div className="payment-option">
                     <label className="payment-option">
                       <input
@@ -439,22 +404,10 @@ const Checkout = () => {
                       <BiArrowBack className="me-2" />
                       Return to Cart
                     </Link>
-                    {formik.values.paymentOption === "cash" && (
-                      <button
-                        className="button place-order-button"
-                        type="submit"
-                      >
-                        Place Order
-                      </button>
-                    )}
-                    {formik.values.paymentOption === "online" && (
-                      <button
-                        className="button place-order-button"
-                        type="submit"
-                      >
-                        Place Order
-                      </button>
-                    )}
+                    <button className="button place-order-button" type="submit">
+                      Place Order
+                    </button>
+
                   </div>
                 </div>
               </form>

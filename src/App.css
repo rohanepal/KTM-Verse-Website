@@ -61,7 +61,9 @@ a{
   color: white;
   font-size: 14px;
   padding: 5px 15px;
-  border-radius: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+
 } 
 .button:hover{
   background-color: var(--color-a3bcd7);
@@ -567,7 +569,7 @@ footer:not(:first-child){
   border: none;
 }
 .signup:hover {
-  background-color: var(--color-131921);
+  background-color: var(--color-a3bcd7);
   color: white;
 }
 /*  auth card  ends*/
@@ -800,3 +802,67 @@ td:first-child::after {
 .smaller-text {
   font-size: 15px;
 }
+
+
+
+/* Payment Options Section */
+.payment-options {
+  margin-top: 10px;
+  padding: 10px;
+
+}
+
+.payment-options h4 {
+  margin-bottom: 20px;
+}
+
+.payment-option {
+  margin-bottom: 10px;
+  margin-top: 10px;  /* Increase the margin to add more space */
+}
+
+.payment-option label {
+  display: block; /* Display labels as block elements */
+  cursor: pointer;
+}
+
+.payment-option input[type="radio"] {
+  margin-right: 20px;
+}
+
+
+.place-order-button {
+  background-color: #161616;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.place-order-button:hover {
+  background-color: #d2d2d2;
+}
+/* Style the custom radio buttons */
+.payment-option input[type="radio"] + label {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style the custom radio buttons when checked */
+.payment-option input[type="radio"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Style the custom radio buttons hover effect */
+.payment-option label:hover {
+  background-color: #f0f0f0;
+}
+/* Payment Options Section ends*/
