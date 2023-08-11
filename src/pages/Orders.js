@@ -55,19 +55,19 @@ const Orders = () => {
                 order.orderItems.map((item, itemIndex) => (
                   <tr key={item?._id}>
                     {itemIndex === 0 && (
-                      <td rowSpan={order.orderItems.length}>{order?._id}</td>
+                      <td rowSpan={order?.orderItems?.length}>{order?._id}</td>
                     )}
                     <td>{item?.product?.title}</td>
-                    <td>NRs. {item?.price}</td>
+                    <td>NPR {item?.price}</td>
                     <td>
                       <div className="color-indicator" style={{ backgroundColor: item?.color?.title }}></div>
                     </td>
                     <td>{item?.quantity}</td>
                     {itemIndex === 0 && (
-                      <td rowSpan={order.orderItems.length}>{order?.orderStatus}</td>
+                      <td rowSpan={order?.orderItems?.length}>{order?.orderStatus}</td>
                     )}
                     {itemIndex === 0 && (
-                      <td rowSpan={order.orderItems.length}>NRs. {order?.totalPriceAfterDiscount}</td>
+                      <td rowSpan={order?.orderItems?.length}>NPR {order?.totalPriceAfterDiscount}</td>
                     )}
                   </tr>
                 ))

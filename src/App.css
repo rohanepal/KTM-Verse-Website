@@ -306,6 +306,7 @@ footer:not(:first-child){
   top: 2%;
   right: 15px;
 }
+
 /* Product Card ends here */
 
 /* Special Product */
@@ -800,7 +801,7 @@ td:first-child::after {
 
 /* Add this CSS class to make the text smaller */
 .smaller-text {
-  font-size: 15px;
+  font-size: 12px;
 }
 
 

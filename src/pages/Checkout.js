@@ -114,7 +114,7 @@ const Checkout = () => {
       return;
     }
 
-    const paymentAmount = paymentOption === "online" ? totalAmount + 200 : totalAmount;
+    const paymentAmount = paymentOption === "online" ? (totalAmount <= 2000 ? totalAmount + 200 : totalAmount) : totalAmount;
 
     const result = await axios.post(
       "http://localhost:5000/api/user/order/checkout",
@@ -149,6 +149,9 @@ const Checkout = () => {
           config
         );
 
+    
+
+
         dispatch(
           createAnOrder({
             totalPrice: paymentAmount,
@@ -156,6 +159,8 @@ const Checkout = () => {
             orderItems: cartProductState,
             paymentInfo: result.data,
             shippingInfo: JSON.parse(localStorage.getItem("address")),
+            paymentMethod: "online",
+
           })
         );
         dispatch(deleteUserCart());
@@ -181,7 +186,7 @@ const Checkout = () => {
     paymentObject.open();
   };
   const handleCashOnDelivery = async () => {
-    const paymentAmount = totalAmount + 200; // Assuming shipping cost is fixed for COD
+    const paymentAmount = totalAmount <= 2000 ? totalAmount + 200 : totalAmount;
   
     const result = await axios.post(
       "http://localhost:5000/api/user/cart/create-order",
@@ -482,7 +487,7 @@ const Checkout = () => {
                       </div>
                     </div>
                     <div className="flex-grow-1">
-                      <h5 className="total">NRs. {item?.price * item?.quantity}</h5>
+                      <h5 className="total">NPR {item?.price * item?.quantity}</h5>
                     </div>
                   </div>)
                 })
@@ -492,17 +497,19 @@ const Checkout = () => {
             <div className="border-bottom py-4">
               <div className="d-flex justify-content-between align-items-center">
                 <p className="total">Subtotal</p>
-                <p className="total-price">NRs. {totalAmount ? totalAmount : "0"}</p>
+                <p className="total-price">NPR {totalAmount ? totalAmount : "0"}</p>
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <p className="mb-0 total">Shipping</p>
-                <p className="mb-0 total-price">NRs. 200</p>
+                <p className="mb-0 total-price">NPR 200</p>
               </div>
             </div>
             <div className="d-flex justify-content-between align-items-center border-bootom py-4">
-              <h4 className="total">Total</h4>
-              <h5 className="total-price">NRs. {totalAmount ? totalAmount + 200 : "0"}</h5>
-            </div>
+  <h4 className="total">Total</h4>
+  <h5 className="total-price">
+    NPR {totalAmount ? (totalAmount <= 2000 ? totalAmount + 200 : totalAmount) : "0"}
+  </h5>
+</div>
           </div>
         </div>
       </Container>
