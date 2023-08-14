@@ -460,6 +460,32 @@ footer:not(:first-child){
   top: 17%;
 }
 
+/* Add styling for selected filter options */
+.filter-card ul li.selected,
+.product-tags span.selected {
+  background-color: #f9f7f7;
+  color: #161616;
+}
+
+/* Add spacing and styling for filter options */
+.filter-card ul li,
+.product-tags span {
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+.filter-card h3.filter-title,
+.product-tags h3.sub-title {
+  margin-top: 0;
+}
+
+
+
 /* Our store ends here */
 
 
@@ -690,6 +716,8 @@ footer:not(:first-child){
 }
 
 
+
+
 /* single Product Page ends */
 
 /* Cart Page */
@@ -867,3 +895,15 @@ td:first-child::after {
   background-color: #f0f0f0;
 }
 /* Payment Options Section ends*/
+
+
+
+
+/* Styling to make the selected color button match the selected color */
+.color-button.selected {
+  background-color: var(--selected-color); /* Use the CSS variable for color */
+  border-color: transparent; /* Remove the border when color is selected */
+  border: 2px solid var(--selected-color); /* Add a border */
+}
+
+

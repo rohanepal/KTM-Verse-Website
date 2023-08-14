@@ -29,11 +29,11 @@ const [sort, setSort] = useState(null)
     let newBrands = [];
     let category = [];
     let newTags = [];
-    for (let index = 0; index < productState.length; index++) {
+    for (let index = 0; index < productState?.length; index++) {
       const element = productState[index];
-      newBrands.push(element.brand)
-      category.push(element.category)
-      newTags.push(element.tags)
+      newBrands.push(element?.brand)
+      category.push(element?.category)
+      newTags.push(element?.tags)
     }
     setBrands(newBrands)
     setCategories(category)
@@ -56,18 +56,32 @@ const [sort, setSort] = useState(null)
         <div className='row'>
 
           <div className='col-3'>
+            
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop By Categories</h3>
               <div>
                 <ul className="ps-0">
-                {
-                  categories && [...new Set(categories)].map((item, index) => {
-                    return <li key={index} onClick={() => setCategory(item)}>{item}</li>
-                  })
-                }
+                <li
+                    className={!category ? "selected" : ""}
+                    onClick={() => setCategory(null)}
+                  >
+                    All
+                  </li>
+                  {categories &&
+                    [...new Set(categories)].map((item, index) => (
+                      <li
+                        key={index}
+                        className={category === item ? "selected" : ""}
+                        onClick={() => setCategory(item)}
+                      >
+                        {item}
+                      </li>
+                    ))}
                 </ul>
               </div>
             </div>
+
+
             <div className="filter-card mb-3">
               <h3 className="filter-title">Filter By</h3>
               <div className="mt-4 mb-3">
@@ -95,36 +109,55 @@ const [sort, setSort] = useState(null)
                   </div>
                 </div>
               </div>
-              <div className="mt-4 mb-3">
-              <h3 className="sub-title">Product Tags</h3>
+              <div className="filter-card mb-3">
+              <h3 className="filter-title">Product Tags</h3>
               <div>
                 <div className="product-tags d-flex flex-wrap align-items-center gap-10">
-                {
-                  tags && [...new Set(tags)].map((item, index) => {
-                    return (
-                      <span onClick={()=>setTag(item)} key={index} className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3">
+                  <span
+                    className={!tag ? "selected" : ""}
+                    onClick={() => setTag(null)}
+                  >
+                    All
+                  </span>
+                  {tags &&
+                    [...new Set(tags)].map((item, index) => (
+                      <span
+                        key={index}
+                        className={tag === item ? "selected" : ""}
+                        onClick={() => setTag(item)}
+                      >
                         {item}
-                      </span>)
-                  })
-                }
+                      </span>
+                    ))}
                 </div>
               </div>
             </div>
-            <div className="mt-4 mb-3">
-              <h3 className="sub-title">Product Brands</h3>
+
+            <div className="filter-card mb-3">
+              <h3 className="filter-title">Product Brands</h3>
               <div>
                 <div className="product-tags d-flex flex-wrap align-items-center gap-10">
-                {
-                  brands && [...new Set(brands)].map((item, index) => {
-                    return (
-                      <span onClick={()=>setBrand(item)} key={index} className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3">
+                  <span
+                    className={!brand ? "selected" : ""}
+                    onClick={() => setBrand(null)}
+                  >
+                    All
+                  </span>
+                  {brands &&
+                    [...new Set(brands)].map((item, index) => (
+                      <span
+                        key={index}
+                        className={brand === item ? "selected" : ""}
+                        onClick={() => setBrand(item)}
+                      >
                         {item}
-                      </span>)
-                  })
-                }
+                      </span>
+                    ))}
                 </div>
               </div>
             </div>
+
+
             </div>
             
            
@@ -156,6 +189,11 @@ const [sort, setSort] = useState(null)
               </div>
             </div> */}
           </div>
+
+
+
+
+          
           <div className='col-9'>
             <div className='filter-sort-grid mb-4'>
               <div className="d-flex justify-content-between align-items-center">

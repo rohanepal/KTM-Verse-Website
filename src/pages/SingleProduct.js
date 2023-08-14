@@ -181,19 +181,35 @@ const SingleProduct = () => {
                       XXL
                     </span>
                   </div>
-                </div> 
+                </div>
                 {
-                  alreadyAdded === false && <>
-                    <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                      <h3 className="product-heading">Color :</h3>
-                      <Color setColor={setColor} colorData={productState?.color} />
-                    </div>
-                  </>
-                }
+                  alreadyAdded === false && (
+                    <>
+                      <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                        <h3 className="product-heading">Color :</h3>
+                        <Color setColor={setColor} colorData={productState?.color} selectedColor={color} />
+                      </div>
 
+                    </>
+                  )
+                }
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                  {
-                    alreadyAdded === false && <>
+                  {alreadyAdded ? (
+                  <button
+                  className="button border-0"
+                  type="button"
+                  onClick={() => {
+                    navigate("/cart"); // Navigate to the cart page
+                  }}
+                >
+                  Already Added
+                </button>
+                    
+                    // <Link to="/cart" className="button border-0 text-white">
+                    //   Go to Cart
+                    // </Link>
+                  ) : (
+                    <>
                       <h3 className="product-heading">Quantity :</h3>
                       <div className="">
                         <input
@@ -208,25 +224,27 @@ const SingleProduct = () => {
                           value={quantity}
                         />
                       </div>
+                      <div className={alreadyAdded ? "ms-0" : "ms-5" + "d-flex align-items-center gap-30 ms-5"}>
+                        {productState?.quantity > 0 ? (
+                          <button
+                            className="button border-0"
+                            type="button"
+                            onClick={() => {
+                              uploadCart();
+                            }}
+                          >
+                            Add to Cart
+                          </button>
+                        ) : (
+                          <p className="text-danger">Out of Stock</p>
+                        )}
+                      </div>
                     </>
-                  }
-                  <div className={alreadyAdded ? "ms-0" : "ms-5" + "d-flex align-items-center gap-30 ms-5"}>
-                    {productState?.quantity > 0 ? (
-                      <button
-                        className="button border-0"
-                        type="button"
-                        onClick={() => {
-                          uploadCart();
-                        }}
-                      >
-                        {alreadyAdded ? "Already Added" : "Add to Cart"}
-                      </button>
-                    ) : (
-                      <p className="text-danger">Out of Stock</p>
-                    )}
-                  </div>
-
+                  )}
                 </div>
+
+
+
                 <div className="d-flex align-items-center gap-15">
                   <div>
                     <a href="">

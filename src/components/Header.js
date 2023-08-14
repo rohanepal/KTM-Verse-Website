@@ -124,7 +124,7 @@ const Header = () => {
                       authState?.user === null ? <p className='mb-0 justify-content-between align-items-center'>
                         Login <br /> Account
                       </p> : <p className='mb-0 justify-content-between align-items-center'>
-                        Welcome <br />{authState?.user?.firstname}
+                        Welcome <br />{authState?.user?.firstname + " " + authState?.user?.lastname}
                       </p>
                     }
                   </Link>
@@ -164,18 +164,18 @@ const Header = () => {
                   </button>
                   <ul className='dropdown-menu' aria-labelledby="dropdownMenuButton1">
                     <li>
-                      <Link className='dropdown-item text-white' to="">
-                        Action
+                      <Link className='dropdown-item text-white' to="/product">
+                        Clothing
                       </Link>
                     </li>
                     <li>
-                      <Link className='dropdown-item text-white' to="">
-                        Another action
+                      <Link className='dropdown-item text-white' to="/product">
+                        Sneaker
                       </Link>
                     </li>
                     <li>
-                      <Link className='dropdown-item text-white' to="">
-                        Something else here
+                      <Link className='dropdown-item text-white' to="/product">
+                       Accessories
                       </Link>
                     </li>
                   </ul>
